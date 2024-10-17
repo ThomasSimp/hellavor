@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+::selection {
+    background-color: yellow !important;
+    color: #000;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -15,3 +20,65 @@ body {
     display: none; /* Hide scrollbar */
 }
 
+.primary-bg {
+  background-image: url('https://images.pexels.com/photos/7130475/pexels-photo-7130475.jpeg?cs=srgb&dl=pexels-codioful-7130475.jpg&fm=jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.7;
+}
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip-text {
+  visibility: hidden;
+  width: 120px;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  border-radius: 6px;
+  /* Positioning */
+  position: absolute;
+  z-index: 10;
+  bottom: 125%; /* Position above the element */
+  left: 50%;
+  margin-left: -60px; /* Center the tooltip */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Tooltip arrow */
+.tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%; /* Bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.75) transparent transparent transparent;
+}
+
+/* Show tooltip on hover */
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.glass-effect {
+  background: rgba(20, 20, 20, 0.1); /* Semi-transparent background */
+  backdrop-filter: blur(10px); /* Frosted glass effect */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border for definition */
+  border-radius: 8px;
+}
+
+.hover\:glass-hover:hover {
+  background: rgba(255, 255, 255, 0.2); /* Slightly more opaque on hover */
+  backdrop-filter: blur(10px);
+}
