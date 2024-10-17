@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Types } from '../types';
 
 const Explore = () => {
     // Set the page title for the Explore page
@@ -6,7 +7,7 @@ const Explore = () => {
         document.title = "Hellavor | Explore";
     }, []);
 
-    const games = [
+    const games: Types.GameType[] = [
         {
             title: 'Hellavor',
             description: 'An exciting horror game!',
