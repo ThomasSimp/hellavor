@@ -1,22 +1,10 @@
 import { useEffect } from "react";
 import { profilePlaceholder } from "../utils/constants";
+import { Types } from '../types';
 
 const placeholderImage = profilePlaceholder;
 
-// Types
-type Name = string | undefined;
-type Role = string | undefined;
-type Image = string | undefined;
-type Link = string | undefined;
-
-interface teamMembersInterface {
-  name: Name;
-  role: Role;
-  image: Image;
-  link: Link;
-}
-
-const teamMembers: teamMembersInterface[] = [
+const teamMembers: Types.TeamMemberType[] = [
   {
     name: 'Zac',
     role: 'Lead Developer',
