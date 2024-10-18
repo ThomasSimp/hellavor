@@ -11,7 +11,7 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="bg-gray-1000 text-white p-4">
+    <header className="bg-gray-1000 text-white p-4 sticky top-0 z-50">
       <nav className="flex justify-between items-center">
         <h1 className="text-xl font-bold">
           <Link href="/">Hellavor</Link>
