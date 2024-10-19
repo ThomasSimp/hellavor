@@ -94,7 +94,7 @@ const Jobs = () => {
         };
 
         try {
-            const response = await fetch('http://localhost:4000/api/graphql', {
+            const response = await fetch('https://hellavor-backend.onrender.com/api/graphql/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
