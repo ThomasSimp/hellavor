@@ -13,7 +13,7 @@ const Home = () => {
                 <p className="mt-4 text-xl text-gray-200 drop-shadow-md">An epic adventure awaits you!</p>
                 <p className="mt-2 text-md text-gray-300">Join thousands of players in an immersive world filled with excitement and challenges.</p>
                 <a
-                    href="/explore" 
+                    href="/explore"
                     className="mt-6 inline-block px-8 py-4 text-lg font-semibold text-white bg-yellow-500 rounded-full hover:bg-yellow-400 transition duration-300 shadow-lg"
                 >
                     Explore Now
