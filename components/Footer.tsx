@@ -4,7 +4,6 @@ const Footer = () => {
         <p>&copy; 2024 Hellavor. All rights reserved.</p>
       </footer>
     );
-  };
-  
-  export default Footer;
-  
+};
+
+export default Footer;
