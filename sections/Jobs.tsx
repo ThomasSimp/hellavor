@@ -50,7 +50,8 @@ const Jobs = () => {
     };
 
     const validateCoverLetter = (letter: string) => {
-        return letter.length >= 10;
+        const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+        return letter.length >= 10 && urlRegex.test(letter);
     };
 
     const handleSubmitApplication = async (e: React.FormEvent) => {
@@ -79,12 +80,12 @@ const Jobs = () => {
         if (!validateCoverLetter(coverLetter)) {
             Swal.fire({
                 title: 'Invalid Cover Letter',
-                text: 'Cover letter must be at least 10 characters long.',
+                text: 'Cover letter must be at least 10 characters long and should be a valid link.',
                 icon: 'warning',
                 confirmButtonText: 'OK',
             });
             return;
-        }
+        }    
 
         const applicationData = {
             jobId: selectedJob?.id,
