@@ -6,6 +6,31 @@ export declare namespace Types {
     // Non-empty string type
     type NonEmptyString<T extends string> = T extends '' ? never : T;
 
+    // Job-related types
+    type JobTitle = Nullable<NonEmptyString<string>>;
+    type JobDescription = Nullable<NonEmptyString<string>>;
+    type JobLocation = Nullable<NonEmptyString<string>>;
+    type JobType = 'Full-time' | 'Part-time' | 'Contract' | 'Freelance' | 'Internship';
+
+    // Interface for a Job Listing
+    interface JobListingType {
+        id: StringOrNumber;
+        title: JobTitle;
+        description: JobDescription;
+        location: JobLocation;
+        type: JobType;
+    }
+
+    // Utility types for required or optional fields in JobListing
+    type RequiredJobFields = Required<Pick<JobListing, 'id' | 'title' | 'type'>>;
+    type OptionalJobFields = Partial<Omit<JobListing, 'id' | 'title' | 'type'>>;
+
+    // Full Job Type with required and optional fields
+    interface FullJobType extends RequiredJobFields, OptionalJobFields {}
+
+    // Utility to create flexible JobType
+    type JobFactory<T extends JobListing = JobListing> = T;
+
     // Game-related types
     type TitleType = Nullable<NonEmptyString<string>>;
     type DescriptionType = Nullable<NonEmptyString<string>>;
