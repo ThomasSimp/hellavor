@@ -74,12 +74,10 @@ const About = () => {
             We're always looking for talented individuals to join us. Interested in working with Hellavor? Check out our job openings!
           </p>
           <a
-            href="https://hellavor.hiringthing.com/"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/jobs"
             className="inline-block px-8 py-4 bg-yellow-500 text-white text-lg font-bold rounded-full shadow-lg hover:bg-yellow-600 transition duration-300"
           >
-            Apply Now
+            Check out job openings
           </a>
         </div>
       </div>
