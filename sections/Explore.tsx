@@ -11,7 +11,7 @@ const Explore = () => {
         {
             title: 'Hellavor',
             description: 'An exciting horror game!',
-            image: 'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?cs=srgb&dl=pexels-pixabay-1640777.jpg&fm=jpg',
+            image: 'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?cs=srgb&dl=pexels-pixabay-1640777.jpg&fm=jpg', // TODO: Replace with the acutal game logo or brand.
             link: 'https://www.roblox.com/games/hellavor',
             players: '450K',
             rating: '4.8/5',
