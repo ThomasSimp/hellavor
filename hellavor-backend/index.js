@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
 const { buildSchema } = require('graphql');
@@ -6,11 +7,11 @@ const { Client } = require('pg');
 
 // Create a new PostgreSQL client
 const client = new Client({
-  user: "postgres.xgdtvcqzdvawwqyfhwkg",
-  host: "aws-0-eu-central-1.pooler.supabase.com",
-  database: "postgres",
-  password: "hit_thomas2882009@",
-  port: 6543,
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
 });
 
 client.connect()
