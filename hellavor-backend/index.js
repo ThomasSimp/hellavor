@@ -4,6 +4,10 @@ const { graphqlHTTP } = require('express-graphql');
 const { buildSchema } = require('graphql');
 const cors = require('cors');
 const { Client } = require('pg');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // Create a new PostgreSQL client
 const client = new Client({
@@ -34,13 +38,25 @@ const schema = buildSchema(`
     coverLetter: String!
   }
 
-  type Mutation {
-    applyForJob(input: JobApplicationInput!): JobApplicationResponse!
-  }
-
   type JobApplicationResponse {
     success: Boolean!
     message: String!
+  }
+
+  input AdminLoginInput {
+    username: String!
+    password: String!
+  }
+
+  type AdminLoginResponse {
+    success: Boolean!
+    message: String!
+    token: String
+  }
+
+  type Mutation {
+    applyForJob(input: JobApplicationInput!): JobApplicationResponse!
+    adminLogin(input: AdminLoginInput!): AdminLoginResponse!
   }
 
   type Query {
@@ -52,17 +68,14 @@ const schema = buildSchema(`
 const root = {
   applyForJob: async ({ input }) => {
     try {
-      // Insert the job application into the database
       const query = `
         INSERT INTO job_applications (job_id, name, email, cover_letter)
         VALUES ($1, $2, $3, $4)
         RETURNING job_id, name, email, cover_letter
       `;
       const values = [input.jobId, input.name, input.email, input.coverLetter];
-
-      const res = await client.query(query, values);
+      await client.query(query, values);
       
-      // Return success response
       return { success: true, message: 'Application submitted successfully!' };
     } catch (error) {
       return { success: false, message: 'Failed to submit application.' };
@@ -71,10 +84,39 @@ const root = {
   applications: async () => {
     try {
       const result = await client.query('SELECT * FROM job_applications');
-      return result.rows; // Return all job applications
+      return result.rows;
     } catch (error) {
       console.error('Error fetching applications:', error);
       return [];
+    }
+  },
+  adminLogin: async ({ input }) => {
+    const { username, password } = input;
+    
+    try {
+      // Fetch the admin user from the database
+      const query = 'SELECT * FROM admins WHERE username = $1';
+      const result = await client.query(query, [username]);
+
+      if (result.rows.length === 0) {
+        return { success: false, message: 'Invalid username or password' };
+      }
+
+      const admin = result.rows[0];
+
+      // Check if the password is correct
+      const validPassword = await bcrypt.compare(password, admin.password);
+      if (!validPassword) {
+        return { success: false, message: 'Invalid username or password' };
+      }
+
+      // Generate a JWT token
+      const token = jwt.sign({ id: admin.id, username: admin.username }, JWT_SECRET, { expiresIn: '1h' });
+
+      return { success: true, message: 'Login successful', token };
+    } catch (error) {
+      console.error('Login error:', error);
+      return { success: false, message: 'Failed to log in' };
     }
   },
 };
