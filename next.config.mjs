@@ -16,6 +16,11 @@ const nextConfig = {
             source: '/app',
             destination: '/',
             permanent: false,
+        },
+        {
+            source: '/admin',
+            destination: '/admin/login',
+            permanent: false,
         }
       ];
     },
