@@ -1,7 +1,7 @@
 import Layout from '../../components/Layout';
 import Login from '../../sections/admin/Login';
 
-const signup = () => {
+const login = () => {
     return (
         <Layout>
             <Login />
@@ -9,4 +9,4 @@ const signup = () => {
     );
 };
 
-export default signup;
+export default login;

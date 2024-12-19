@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const Login = () => {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -14,19 +14,12 @@ const Login = () => {
         e.preventDefault();  // Prevent form submission reload
 
         try {
-            const response = await axios.post('http://localhost:4000/api/graphql', {
-                query: `
-                    mutation {
-                        adminLogin(input: { username: "${email}", password: "${password}" }) {
-                            success
-                            message
-                            token
-                        }
-                    }
-                `
+            const response = await axios.post('http://localhost:4000/api/admin/login', {
+                username,
+                password,
             });
 
-            const { success, message, token } = response.data.data.adminLogin;
+            const { success, message, token } = response.data;
 
             if (success) {
                 // Store JWT token in localStorage
@@ -55,16 +48,16 @@ const Login = () => {
 
                 <form className="mt-8 space-y-6 max-w-sm w-full" onSubmit={handleLogin}>
                     <div>
-                        <label htmlFor="email" className="sr-only">Email address</label>
+                        <label htmlFor="username" className="sr-only">Username</label>
                         <input
-                            id="email"
-                            name="email"
-                            type="email"
+                            id="username"
+                            name="username"
+                            type="text"
                             required
                             className="block w-full px-4 py-3 text-lg text-gray-900 placeholder-gray-500 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
-                            placeholder="Email address"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
                         />
                     </div>
 
